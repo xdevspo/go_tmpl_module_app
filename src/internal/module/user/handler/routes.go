@@ -7,14 +7,10 @@ import (
 )
 
 // RegisterRoutes регистрирует все маршруты модуля пользователей
-func (h *UserHandler) RegisterRoutes(router *gin.Engine, policyMiddleware *middleware.PolicyMiddleware) {
-	apiV1 := router.Group("/api/v1")
-
-	// Маршруты пользователей
-	users := apiV1.Group("/users")
-	h.RegisterUserRoutes(users, policyMiddleware)
-	h.RegisterUserRoleRoutes(users, policyMiddleware)
-	h.RegisterUserPermissionRoutes(users, policyMiddleware)
+func (h *UserHandler) RegisterRoutes(group *gin.RouterGroup, policyMiddleware *middleware.PolicyMiddleware) {
+	h.RegisterUserRoutes(group, policyMiddleware)
+	h.RegisterUserRoleRoutes(group, policyMiddleware)
+	h.RegisterUserPermissionRoutes(group, policyMiddleware)
 }
 
 // RegisterUserRoutes регистрирует маршруты для управления пользователями

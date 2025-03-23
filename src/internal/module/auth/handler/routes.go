@@ -19,7 +19,6 @@ func (h *AuthHandler) RegisterProtectedRoutes(group *gin.RouterGroup) {
 	// Защищенные маршруты
 	group.POST("/logout", h.Logout)
 	group.GET("/me", h.GetMe)
-	group.GET("/debug", h.AuthDebugEndpoint)
 }
 
 // RefreshTokenEndpoint обрабатывает запрос на обновление токена
@@ -31,15 +30,4 @@ func (h *AuthHandler) RefreshTokenEndpoint(c *gin.Context) {
 	// Создаем middleware используя JWT менеджер
 	authMiddleware := middleware.NewAuthMiddleware(jwtManager, h.sp)
 	authMiddleware.RefreshToken()(c)
-}
-
-// AuthDebugEndpoint обрабатывает запрос для проверки авторизации
-func (h *AuthHandler) AuthDebugEndpoint(c *gin.Context) {
-	// Получаем JWT конфигурацию из сервис-провайдера
-	jwtConfig := h.sp.JWTConfig()
-	// Создаем JWT менеджер
-	jwtManager := jwt.NewManager(jwtConfig.SecretKey(), jwtConfig.AccessTokenExpiryMinutes())
-	// Создаем middleware используя JWT менеджер
-	authMiddleware := middleware.NewAuthMiddleware(jwtManager, h.sp)
-	authMiddleware.AuthDebug()(c)
 }
