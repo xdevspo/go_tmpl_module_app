@@ -1,0 +1,95 @@
+# Рабочая директория
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Команда для билда (сборка бинарника перед запуском)
+cmd = "go build -gcflags='all=-N -l' -o ./tmp/main ./cmd/main.go"
+
+# Исполняемый файл
+bin = "tmp/main"
+
+# Среда выполнения (можно передавать переменные окружения)
+full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
+
+# Дополнительные аргументы при запуске
+args_bin = []
+
+# Расширения файлов, которые `air` будет отслеживать
+include_ext = ["go", "tpl", "tmpl", "html"]
+
+# Игнорируемые директории
+exclude_dir = ["assets", "tmp", "vendor", "frontend/node_modules"]
+
+# Игнорируемые файлы
+exclude_file = []
+
+# Исключаемые файлы по регулярному выражению
+exclude_regex = ["_test\\.go"]
+
+# Исключать файлы, которые не изменились
+exclude_unchanged = true
+
+# Следовать за символическими ссылками
+follow_symlink = true
+
+# Файл логов (будет храниться в `tmp/`)
+log = "air.log"
+
+# Использовать поллинг вместо `fsnotify` (false = использовать `fsnotify`)
+poll = false
+
+# Интервал поллинга (минимум 500 мс)
+poll_interval = 500 # ms
+
+# Задержка перед каждым запуском билда (0 мс = нет задержки)
+delay = 0 # ms
+
+# Останавливать старый процесс при ошибках сборки
+stop_on_error = true
+
+# Перед убийством процесса отправлять `Interrupt` (Windows не поддерживает)
+send_interrupt = false
+
+# Задержка перед принудительным завершением процесса
+kill_delay = 500 # nanosecond
+
+# Перезапускать бинарник после завершения
+rerun = false
+
+# Задержка после каждого исполнения
+rerun_delay = 500
+
+[log]
+# Отображать время в логах
+time = false
+
+# Показывать только основной лог (скрывать watcher, build, runner)
+main_only = false
+
+# Полностью отключить логи
+silent = false
+
+[color]
+# Цвета вывода логов
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+[misc]
+# Удалять временные файлы при выходе
+clean_on_exit = true
+
+[screen]
+# Очищать экран при каждом билде
+clear_on_rebuild = true
+
+# Сохранять скроллинг терминала
+keep_scroll = true
+
+[proxy]
+# Включить live-reload для браузера
+enabled = true
+proxy_port = 8090
+app_port = 8080

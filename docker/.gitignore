@@ -1,0 +1,6 @@
+# Environment variables - ignore all except example
+.env*
+!.env.example
+
+# Build output
+tmp/

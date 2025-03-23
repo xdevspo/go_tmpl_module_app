@@ -1,0 +1,13 @@
+# Environment variables - ignore all except example
+.env*
+!.env.example
+
+# Build output
+bin/
+tmp/
+
+# Dependencies
+vendor/
+
+# Debug files
+__debug*

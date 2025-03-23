@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: ../
+      dockerfile: docker/backend/Dockerfile
+      target: dev
+    volumes:
+      - ../src:/app
+      - ../docker/.air.toml:/app/.air.toml
+      - ../docker/wait-for.sh:/app/wait-for.sh
+      - ../docker/debug-wrapper.sh:/app/debug-wrapper.sh
+      - go_modules_cache:/go/pkg/mod  # Для кеширования модулей
+      - go_build_cache:/root/.cache/go-build  # Кеш сборки
+    working_dir: /app
+    environment:
+      ENV: dev
+      DEBUG: ${DEBUG:-false}
+      DB_DSN: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable"
+    ports:
+      #- "${BACKEND_PORT}:8080"
+      - "40000:40000"  # Порт для отладки
+    security_opt:
+      - "seccomp:unconfined" # нужно для отладки
+    cap_add:
+      - SYS_PTRACE # нужно для отладки
+
+volumes:
+  go_modules_cache:
+  go_build_cache:

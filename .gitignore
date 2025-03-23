@@ -1,0 +1,30 @@
+# Environment variables - ignore all except example
+.env*
+!.env.example
+
+docs/
+
+# Build output
+bin/
+tmp/
+
+# Dependencies
+vendor/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS specific
+.DS_Store
+
+# Docker volumes
+data/
+
+# Air temporary files
+tmp/
